@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Preview — Bilan des avis CNS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --color-slate-dark:#141413; --color-ivory-medium:#f0eee6; --color-ivory-light:#faf9f5;
+  --color-cloud-medium:#b0aea5; --color-cloud-dark:#87867f; --color-stone:#cccbc8;
+  --color-slate-medium:#3d3d3a; --color-oat-warm:#e3dacc; --color-manilla:#f5e3c7;
+  --color-nickel-navy:#0a3d62; --color-nickel-navy-deep:#082f4c;
+  --color-sapin:#2b7363; --color-sapin-deep:#256b5a;
+  /* semantic — démo preview uniquement, non définies dans DESIGN.md */
+  --ok-bg:#e4e8d3; --ok-fg:#3b5520; --warn-bg:#f5e3c7; --warn-fg:#7a4a0c;
+  --err-bg:#f2dcd4; --err-fg:#8e2c18; --info-bg:#dfe5ea; --info-fg:#0a3d62;
+  --serif:'Source Serif 4',Georgia,serif; --sans:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0}
+body{background:var(--color-ivory-medium);color:var(--color-slate-dark);font-family:var(--serif);font-size:20px;line-height:1.4;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1280px;margin:0 auto;padding:0 32px}
+section{padding:100px 0;border-bottom:1px solid var(--color-stone)}
+.eyebrow{font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--color-cloud-dark);margin-bottom:24px}
+.sans{font-family:var(--sans)}
+a{color:inherit;text-decoration:underline;text-decoration-color:var(--color-nickel-navy);text-underline-offset:3px}
+h2.sec{font-family:var(--sans);font-weight:700;font-size:40px;line-height:1.1;letter-spacing:-.01em;margin-bottom:48px}
+
+/* topbar */
+.top{display:flex;justify-content:space-between;align-items:center;padding:24px 0;font-family:var(--sans);font-size:12px}
+.logo{font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--color-nickel-navy)}
+.top nav{display:flex;gap:24px;color:var(--color-cloud-dark)}
+
+/* 1 — typo */
+.hero{display:grid;grid-template-columns:1.3fr 1fr;gap:64px;align-items:end}
+.display-sans{font-family:var(--sans);font-weight:700;font-size:61px;line-height:1.1;letter-spacing:-.12px}
+.display-serif{font-family:var(--serif);font-size:68px;line-height:1.1;margin-top:16px}
+.display-serif em{font-style:italic;color:var(--color-nickel-navy)}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:76px}
+.spec{background:var(--color-ivory-light);border:1px solid var(--color-stone);border-radius:24px;padding:32px}
+.spec .lab{font-family:var(--sans);font-size:12px;color:var(--color-cloud-dark);letter-spacing:-.24px;margin-bottom:16px;display:flex;justify-content:space-between}
+table{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:15px;font-variant-numeric:tabular-nums}
+th{text-align:left;font-weight:500;font-size:12px;color:var(--color-cloud-dark);padding:8px 0;border-bottom:1px solid var(--color-stone)}
+td{padding:10px 0;border-bottom:1px solid var(--color-stone)}
+td.n,th.n{text-align:right}
+pre{font-family:var(--mono);font-size:14px;line-height:1.6;background:var(--color-slate-dark);color:var(--color-ivory-light);border-radius:16px;padding:24px;overflow-x:auto}
+pre .c{color:var(--color-cloud-dark)} pre .k{color:#9ab8cf} pre .s{color:#a9cfc1}
+
+/* 2 — palette */
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px;margin-bottom:76px}
+.sw{border-radius:16px;overflow:hidden;border:1px solid var(--color-stone);background:var(--color-ivory-light)}
+.sw .chip{height:96px}
+.sw .meta{padding:12px;font-family:var(--sans);font-size:12px;line-height:1.4}
+.sw .meta b{display:block;font-weight:600}
+.sw .meta code{font-family:var(--mono);color:var(--color-cloud-dark)}
+.sw.new{outline:2px solid var(--color-nickel-navy);outline-offset:2px}
+.tag-new{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.08em;color:var(--color-nickel-navy);text-transform:uppercase}
+.comp{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.block h3{font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--color-cloud-dark);margin-bottom:16px}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btn{font-family:var(--sans);font-size:15px;font-weight:500;letter-spacing:-.075px;border:0;cursor:pointer;padding:12px 28px;border-radius:0 0 8px 8px;transition:background .15s}
+.btn-primary{background:var(--color-sapin);color:var(--color-ivory-light)}
+.btn-primary:hover{background:var(--color-sapin-deep)}
+.btn-secondary{background:var(--color-ivory-light);color:var(--color-slate-dark);border:1px solid var(--color-stone);border-top:0}
+.btn-secondary:hover{background:var(--color-oat-warm)}
+.btn-ghost{background:transparent;color:var(--color-slate-dark);padding:12px 4px;text-decoration:underline;text-decoration-color:var(--color-nickel-navy);text-underline-offset:4px}
+.btn-ghost:hover{color:var(--color-nickel-navy)}
+.btn:focus-visible,.input:focus{outline:2px solid var(--color-nickel-navy);outline-offset:2px}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;font-family:var(--sans)}
+.field label{font-size:12px;font-weight:500;color:var(--color-slate-medium)}
+.input{font-family:var(--sans);font-size:15px;padding:11px 14px;border:1px solid var(--color-cloud-dark);border-radius:12px;background:var(--color-ivory-light);color:var(--color-slate-dark)}
+.input.focus{outline:2px solid var(--color-nickel-navy);outline-offset:2px;border-color:var(--color-nickel-navy)}
+.input.err{border-color:var(--err-fg)}
+.hint{font-size:12px;color:var(--color-cloud-dark)} .hint.err{color:var(--err-fg)}
+.alert{font-family:var(--sans);font-size:14px;line-height:1.4;padding:12px 16px;border-radius:12px;margin-bottom:10px;border-left:3px solid currentColor}
+.alert b{font-weight:600}
+.a-ok{background:var(--ok-bg);color:var(--ok-fg)} .a-warn{background:var(--warn-bg);color:var(--warn-fg)}
+.a-err{background:var(--err-bg);color:var(--err-fg)} .a-info{background:var(--info-bg);color:var(--info-fg)}
+.card{background:var(--color-ivory-light);border:1px solid var(--color-stone);border-radius:24px;padding:28px;margin-top:32px}
+.card h4{font-family:var(--sans);font-size:20px;font-weight:600;margin-bottom:8px}
+.card p{font-size:17px;color:var(--color-slate-medium)}
+.card .row{margin-top:20px}
+
+/* 3 — dashboard */
+.app{display:grid;grid-template-columns:232px 1fr;border:1px solid var(--color-stone);border-radius:24px;overflow:hidden;background:var(--color-ivory-medium)}
+.side{background:var(--color-ivory-light);border-right:1px solid var(--color-stone);padding:28px 16px;font-family:var(--sans);font-size:14px;display:flex;flex-direction:column;gap:4px}
+.side .logo{padding:0 12px 28px;font-size:11px;line-height:1.5}
+.side .logo small{display:block;color:var(--color-cloud-dark);letter-spacing:.04em;text-transform:none;font-weight:500}
+.nav-i{display:flex;justify-content:space-between;padding:10px 12px;color:var(--color-slate-medium);border-left:2px solid transparent;text-decoration:none}
+.nav-i:hover{color:var(--color-slate-dark)}
+.nav-i.on{color:var(--color-nickel-navy);font-weight:600;border-left-color:var(--color-nickel-navy);background:var(--color-ivory-medium)}
+.nav-i .ct{font-size:12px;color:var(--color-cloud-dark);font-variant-numeric:tabular-nums}
+.side .sync{margin-top:auto;padding:16px 12px 0;border-top:1px solid var(--color-stone);font-size:12px;color:var(--color-cloud-dark);line-height:1.5}
+.main{padding:32px 40px 40px}
+.hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;gap:16px;flex-wrap:wrap}
+.hdr h3{font-family:var(--serif);font-weight:400;font-size:36px;line-height:1.1}
+.hdr .r{display:flex;align-items:center;gap:12px;font-family:var(--sans);font-size:14px}
+.select{font-family:var(--sans);font-size:14px;padding:9px 34px 9px 14px;border:1px solid var(--color-cloud-dark);border-radius:12px;background:var(--color-ivory-light) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23141413' fill='none'/%3E%3C/svg%3E") no-repeat right 14px center;appearance:none;color:var(--color-slate-dark)}
+.avatar{width:36px;height:36px;border-radius:50%;background:var(--color-nickel-navy);color:var(--color-ivory-light);display:grid;place-items:center;font-weight:600;font-size:13px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.stat{background:var(--color-ivory-light);border:1px solid var(--color-stone);border-radius:24px;padding:24px}
+.stat .k{font-family:var(--sans);font-size:12px;color:var(--color-cloud-dark);font-weight:500;margin-bottom:12px}
+.stat .v{font-family:var(--sans);font-weight:700;font-size:40px;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stat .v small{font-size:16px;font-weight:500;color:var(--color-cloud-dark);margin-left:6px}
+.stat .d{font-family:var(--sans);font-size:12px;margin-top:10px;color:var(--color-slate-medium)}
+.stat .d .up{color:var(--ok-fg);font-weight:600}
+.spark{margin-top:10px;display:block}
+.two{display:grid;grid-template-columns:1fr 340px;gap:16px}
+.panel{background:var(--color-ivory-light);border:1px solid var(--color-stone);border-radius:24px;padding:24px 28px}
+.panel-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.panel-h h4{font-family:var(--sans);font-size:20px;font-weight:600}
+.panel-h span{font-family:var(--sans);font-size:12px;color:var(--color-cloud-dark)}
+.rv td{vertical-align:top;padding:14px 8px 14px 0}
+.stars{color:var(--color-slate-dark);letter-spacing:1px;white-space:nowrap}
+.stars i{color:var(--color-stone);font-style:normal}
+.who{font-weight:600}
+.ex{font-family:var(--serif);font-size:16px;color:var(--color-slate-medium);line-height:1.4;max-width:360px}
+.th{font-size:12px;font-weight:500;color:var(--color-slate-medium);border-bottom:1px solid var(--color-nickel-navy);white-space:nowrap}
+.btn-sm{padding:8px 14px;font-size:13px;white-space:nowrap}
+.feat{background:var(--color-manilla);border-radius:24px;padding:32px}
+.feat .eyebrow{color:var(--color-slate-medium);margin-bottom:12px}
+.feat h4{font-family:var(--serif);font-weight:400;font-size:34px;line-height:1.1;margin-bottom:16px}
+.feat p{font-size:17px;margin-bottom:16px}
+.feat blockquote{font-size:16px;font-style:italic;border-left:2px solid var(--color-slate-dark);padding-left:14px;margin:12px 0;color:var(--color-slate-medium)}
+.feat mark{background:var(--color-oat-warm);color:inherit;padding:0 2px}
+.sim{margin-top:16px;font-family:var(--sans);font-size:14px;line-height:1.5}
+.sim b{font-variant-numeric:tabular-nums}
+footer{background:var(--color-slate-dark);color:var(--color-ivory-light);padding:48px 0;font-family:var(--sans);font-size:12px}
+footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+footer span{color:var(--color-cloud-medium)}
+
+@media (max-width:1024px){
+  .hero,.spec-grid,.comp,.two{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .app{grid-template-columns:1fr} .side{display:none}
+}
+@media (max-width:640px){
+  .wrap{padding:0 16px} section{padding:64px 0}
+  .display-sans{font-size:40px} .display-serif{font-size:44px}
+  .stats{grid-template-columns:1fr} .main{padding:24px 16px}
+  .top nav{display:none} .rv .ex{max-width:none}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="logo">Cuve Nickel Services · Avis</div>
+    <nav><span>Typographie</span><span>Palette</span><span>Écran</span></nav>
+  </header>
+</div>
+
+<!-- 1 — SPECIMEN TYPO -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">01 — Specimen typographique</div>
+    <div class="hero">
+      <div>
+        <div class="display-sans">Bilan des avis.</div>
+        <div class="display-serif">Cuve Nickel Services, <em>septembre 2026</em></div>
+      </div>
+      <p>Votre note Google reste à <a href="#">4,8 sur 131 avis</a>. Ce mois-ci, six clients ont laissé un avis, contre quatre en août. La ponctualité revient deux fois dans les reproches : c'est le point à travailler avant votre prochain bilan. Trois avis attendent encore une réponse, et un brouillon est prêt pour chacun.</p>
+    </div>
+
+    <div class="spec-grid">
+      <div class="spec">
+        <div class="lab"><span>Data — Inter 15px, tabular-nums</span><span>Sans</span></div>
+        <table>
+          <thead><tr><th>Mois</th><th class="n">Avis reçus</th><th class="n">Note du mois</th><th class="n">Note affichée</th><th class="n">Réponse</th></tr></thead>
+          <tbody>
+            <tr><td>Juin 2026</td><td class="n">7</td><td class="n">5,00</td><td class="n">4,81</td><td class="n">71 %</td></tr>
+            <tr><td>Juillet 2026</td><td class="n">5</td><td class="n">4,60</td><td class="n">4,80</td><td class="n">80 %</td></tr>
+            <tr><td>Août 2026</td><td class="n">4</td><td class="n">4,75</td><td class="n">4,80</td><td class="n">100 %</td></tr>
+            <tr><td>Septembre 2026</td><td class="n">6</td><td class="n">5,00</td><td class="n">4,83</td><td class="n">50 %</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="spec">
+        <div class="lab"><span>Code — JetBrains Mono 14px</span><span>Mono</span></div>
+<pre><span class="c">// Simulateur : avis 5★ nécessaires pour le palier supérieur</span>
+<span class="k">function</span> avisPourPalier(somme, total, cible) {
+  <span class="k">let</span> n = <span class="s">0</span>;
+  <span class="k">while</span> (arrondiGoogle((somme + <span class="s">5</span> * n) / (total + n)) &lt; cible) n++;
+  <span class="k">return</span> n; <span class="c">// « Il vous faut 16 avis 5★ pour afficher 4,9 »</span>
+}</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 — PALETTE -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">02 — Palette &amp; composants</div>
+    <h2 class="sec">De l'encre marine, un vert d'action, et le papier ivoire.</h2>
+
+    <div class="swatches">
+      <div class="sw new"><div class="chip" style="background:#0a3d62"></div><div class="meta"><span class="tag-new">Brand</span><b>Nickel Navy</b><code>#0a3d62</code></div></div>
+      <div class="sw new"><div class="chip" style="background:#082f4c"></div><div class="meta"><span class="tag-new">Brand hover</span><b>Nickel Navy Deep</b><code>#082f4c</code></div></div>
+      <div class="sw new"><div class="chip" style="background:#2b7363"></div><div class="meta"><span class="tag-new">Accent</span><b>Sapin</b><code>#2b7363</code></div></div>
+      <div class="sw new"><div class="chip" style="background:#256b5a"></div><div class="meta"><span class="tag-new">Accent hover</span><b>Sapin Deep</b><code>#256b5a</code></div></div>
+      <div class="sw"><div class="chip" style="background:#141413"></div><div class="meta"><b>Slate Dark</b><code>#141413</code></div></div>
+      <div class="sw"><div class="chip" style="background:#3d3d3a"></div><div class="meta"><b>Slate Medium</b><code>#3d3d3a</code></div></div>
+      <div class="sw"><div class="chip" style="background:#87867f"></div><div class="meta"><b>Cloud Dark</b><code>#87867f</code></div></div>
+      <div class="sw"><div class="chip" style="background:#b0aea5"></div><div class="meta"><b>Cloud Medium</b><code>#b0aea5</code></div></div>
+      <div class="sw"><div class="chip" style="background:#cccbc8"></div><div class="meta"><b>Stone</b><code>#cccbc8</code></div></div>
+      <div class="sw"><div class="chip" style="background:#e3dacc"></div><div class="meta"><b>Oat Warm</b><code>#e3dacc</code></div></div>
+      <div class="sw"><div class="chip" style="background:#f5e3c7"></div><div class="meta"><b>Manilla</b><code>#f5e3c7</code></div></div>
+      <div class="sw"><div class="chip" style="background:#f0eee6"></div><div class="meta"><b>Ivory Medium</b><code>#f0eee6</code></div></div>
+      <div class="sw"><div class="chip" style="background:#faf9f5"></div><div class="meta"><b>Ivory Light</b><code>#faf9f5</code></div></div>
+    </div>
+
+    <div class="comp">
+      <div class="block">
+        <h3>Boutons</h3>
+        <div class="row">
+          <button class="btn btn-primary">Copier le brouillon</button>
+          <button class="btn btn-secondary">Autre proposition</button>
+          <button class="btn btn-ghost">Ouvrir l'avis sur Google</button>
+        </div>
+        <div class="card">
+          <h4>Demander un avis</h4>
+          <p>Envoyez ce lien à vos clients après l'intervention. Ils arrivent directement sur la page de dépôt d'avis de votre fiche.</p>
+          <div class="row"><button class="btn btn-primary">Copier le lien</button><button class="btn btn-ghost">Télécharger le QR code</button></div>
+        </div>
+      </div>
+      <div class="block">
+        <h3>Champs</h3>
+        <div class="field"><label>Signature des réponses</label><input class="input" value="Cuve Nickel Services"><span class="hint">Telle qu'elle figure sur votre fiche Google.</span></div>
+        <div class="field"><label>Adresse d'alerte</label><input class="input focus" value="contact@cuvenickel"><span class="hint">Un mail par avis de 1 à 3★.</span></div>
+        <div class="field"><label>Export Google Takeout</label><input class="input err" value="photos-2026.zip"><span class="hint err">Ce fichier n'est pas un export Google My Business.</span></div>
+      </div>
+      <div class="block">
+        <h3>Alertes</h3>
+        <div class="alert a-ok"><b>Vous êtes à jour.</b> Tous vos avis ont reçu une réponse.</div>
+        <div class="alert a-warn"><b>Aucun nouvel avis en septembre.</b> Pensez à envoyer le lien à vos derniers clients.</div>
+        <div class="alert a-err"><b>Récupération échouée.</b> Reconnectez votre fiche Google ou rechargez un zip.</div>
+        <div class="alert a-info"><b>Dernière récupération :</b> aujourd'hui à 6 h 02.</div>
+        <p class="hint sans" style="margin-top:12px">Couleurs semantic : démo uniquement, non définies dans DESIGN.md.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 — MOCKUP DASHBOARD -->
+<section style="border-bottom:0">
+  <div class="wrap">
+    <div class="eyebrow">03 — Écran : bilan du mois</div>
+    <div class="app">
+      <aside class="side">
+        <div class="logo">Cuve Nickel<small>Bilan des avis Google</small></div>
+        <a class="nav-i on" href="#">Bilan du mois</a>
+        <a class="nav-i" href="#">Thèmes clients <span class="ct">10</span></a>
+        <a class="nav-i" href="#">Réponses <span class="ct">3</span></a>
+        <a class="nav-i" href="#">Simulateur</a>
+        <a class="nav-i" href="#">Demandes d'avis</a>
+        <div class="sync">Fiche connectée<br>Dernière récupération : 21 oct., 6 h 02</div>
+      </aside>
+      <div class="main">
+        <div class="hdr">
+          <h3>Septembre 2026</h3>
+          <div class="r">
+            <select class="select"><option>Septembre 2026</option><option>Août 2026</option></select>
+            <button class="btn btn-secondary btn-sm">Télécharger le PDF</button>
+            <div class="avatar" title="Compte Google connecté">CN</div>
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="k">Note affichée sur Google</div>
+            <div class="v">4,8<small>4,83</small></div>
+            <svg class="spark" width="100%" height="28" viewBox="0 0 120 28" preserveAspectRatio="none" aria-label="Évolution sur 12 mois"><polyline fill="none" stroke="#0a3d62" stroke-width="1.5" points="0,20 11,18 22,22 33,19 44,17 55,18 66,14 77,15 88,16 99,15 110,11 120,9"/></svg>
+          </div>
+          <div class="stat"><div class="k">Avis au total</div><div class="v">131</div><div class="d">118 × 5★ · 9 × 4★ · 4 × 1–3★</div></div>
+          <div class="stat"><div class="k">Avis reçus ce mois</div><div class="v">6</div><div class="d"><span class="up">+2</span> vs août (4)</div></div>
+          <div class="stat"><div class="k">Avis avec réponse</div><div class="v">92 %</div><div class="d">Délai moyen : 3 jours</div></div>
+        </div>
+
+        <div class="two">
+          <div class="panel">
+            <div class="panel-h"><h4>Avis sans réponse</h4><span>Les plus négatifs en tête</span></div>
+            <table class="rv">
+              <tbody>
+                <tr>
+                  <td><span class="stars">★★★<i>★★</i></span></td>
+                  <td><div class="who">Martine</div><div class="ex">« Travail propre, mais arrivé avec 1 h 30 de retard sans prévenir. »</div></td>
+                  <td><span class="th">Ponctualité</span></td>
+                  <td class="n"><button class="btn btn-primary btn-sm">Copier le brouillon</button></td>
+                </tr>
+                <tr>
+                  <td><span class="stars">★★★★<i>★</i></span></td>
+                  <td><div class="who">Jean-Luc</div><div class="ex">« Neutralisation rapide, certificat reçu le lendemain pour la vente. »</div></td>
+                  <td><span class="th">Certificat</span></td>
+                  <td class="n"><button class="btn btn-secondary btn-sm">Voir</button></td>
+                </tr>
+                <tr>
+                  <td><span class="stars">★★★★★</span></td>
+                  <td><div class="who">Sophie</div><div class="ex">« Très pro, explications claires sur le dégazage. Je recommande. »</div></td>
+                  <td><span class="th">Explications</span></td>
+                  <td class="n"><button class="btn btn-secondary btn-sm">Voir</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <div class="feat">
+              <div class="eyebrow">Point prioritaire</div>
+              <h4>Ponctualité</h4>
+              <p>Reprochée 3 fois sur les 12 derniers mois, dont la plus récente le 14 septembre.</p>
+              <blockquote>« … <mark>arrivé avec 1 h 30 de retard</mark> sans prévenir. »</blockquote>
+              <a class="sans" style="font-size:14px" href="#">Lire les 3 avis</a>
+            </div>
+            <div class="panel sim" style="margin-top:16px">
+              Il vous faut <b>16 avis 5★</b> pour afficher <b>4,9</b>.<br>
+              Vous pouvez recevoir <b>2 avis 1★</b> avant de descendre à <b>4,7</b>.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap"><div>Cuve Nickel Services · Bilan des avis Google</div><span>Preview design · Nickel Navy #0a3d62 · Sapin #2b7363</span></div></footer>
+</body>
+</html>

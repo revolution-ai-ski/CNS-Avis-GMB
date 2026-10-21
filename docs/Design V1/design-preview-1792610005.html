@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CNS Avis — Preview design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Neutrals — inchangés */
+  --color-slate-dark: #141413;
+  --color-ivory-medium: #f0eee6;
+  --color-ivory-light: #faf9f5;
+  --color-cloud-medium: #b0aea5;
+  --color-cloud-dark: #87867f;
+  --color-stone: #cccbc8;
+  --color-slate-medium: #3d3d3a;
+  --color-oat-warm: #e3dacc;
+  --color-manilla: #f5e3c7;
+  /* Brand + Accent — modifiés */
+  --color-moss: #3a5a40;
+  --color-moss-deep: #2c4632;
+  --color-clay: #b4532a;
+  --color-clay-deep: #96421f;
+  /* Semantic — provisoires, preview uniquement (absents de DESIGN.md) */
+  --sem-success-fg: #4a6b2a; --sem-success-bg: #e8ecd8;
+  --sem-warning-fg: #7a5200; --sem-warning-bg: #f5e6c3;
+  --sem-error-fg: #9a2b22;   --sem-error-bg: #f4dcd5;
+  --sem-info-fg: #3d3d3a;    --sem-info-bg: #e3dacc;
+
+  --serif: 'Source Serif 4', Georgia, Charter, serif;
+  --sans: 'Inter', system-ui, -apple-system, Arial, sans-serif;
+  --mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--color-ivory-medium);
+  color: var(--color-slate-dark);
+  font-family: var(--serif);
+  font-size: 20px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+@media (max-width: 640px) { .wrap { padding: 0 16px; } }
+
+/* Chrome */
+.topbar { display: flex; justify-content: space-between; align-items: center; padding: 24px 0; font-family: var(--sans); font-size: 12px; letter-spacing: -0.24px; }
+.logo { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; }
+.logo-mark { width: 14px; height: 14px; background: var(--color-moss); border-radius: 0 0 4px 4px; }
+.topbar nav { display: flex; gap: 24px; }
+.topbar nav a { color: var(--color-cloud-dark); text-decoration: none; }
+.topbar nav a:hover { color: var(--color-slate-dark); }
+
+section { padding: 100px 0; border-top: 1px solid var(--color-stone); }
+.eyebrow { font-family: var(--sans); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-cloud-dark); margin: 0 0 32px; }
+.eyebrow b { color: var(--color-moss); font-weight: 600; }
+.meta { font-family: var(--sans); font-size: 12px; letter-spacing: -0.24px; color: var(--color-cloud-dark); }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: 1.2fr 1fr; gap: 76px; padding: 76px 0 100px; align-items: end; }
+.hero h1 { font-family: var(--sans); font-weight: 700; font-size: 61px; line-height: 1.1; letter-spacing: -0.12px; margin: 0; }
+.hero h1 a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
+.hero p { margin: 0; }
+@media (max-width: 900px) { .hero { grid-template-columns: 1fr; gap: 32px; } .hero h1 { font-size: 44px; } }
+
+/* Section 1 — Specimen */
+.spec-row { display: grid; grid-template-columns: 220px 1fr; gap: 32px; padding: 32px 0; border-bottom: 1px solid var(--color-stone); align-items: baseline; }
+.spec-row:last-child { border-bottom: 0; }
+@media (max-width: 760px) { .spec-row { grid-template-columns: 1fr; gap: 12px; } }
+.display-serif { font-family: var(--serif); font-size: 68px; line-height: 1.1; font-weight: 400; margin: 0; }
+.display-serif em { font-style: normal; color: var(--color-moss); }
+.heading-sans { font-family: var(--sans); font-size: 61px; line-height: 1.1; font-weight: 700; letter-spacing: -0.12px; margin: 0; }
+@media (max-width: 760px) { .display-serif { font-size: 48px; } .heading-sans { font-size: 40px; } }
+.subheading { font-family: var(--sans); font-size: 24px; line-height: 1.3; font-weight: 600; letter-spacing: -0.05px; margin: 0; }
+.body-copy { max-width: 68ch; margin: 0; }
+.caption { font-family: var(--sans); font-size: 12px; letter-spacing: -0.24px; color: var(--color-cloud-dark); margin: 0; }
+
+table.data { border-collapse: collapse; font-family: var(--sans); font-size: 15px; letter-spacing: -0.075px; font-variant-numeric: tabular-nums; width: 100%; max-width: 640px; }
+table.data th { text-align: left; font-weight: 600; font-size: 12px; letter-spacing: -0.24px; color: var(--color-cloud-dark); padding: 8px 12px 8px 0; border-bottom: 1px solid var(--color-slate-dark); }
+table.data td { padding: 12px 12px 12px 0; border-bottom: 1px solid var(--color-stone); }
+table.data td.num, table.data th.num { text-align: right; }
+.delta-up { color: var(--sem-success-fg); }
+.delta-down { color: var(--sem-error-fg); }
+
+pre.code { margin: 0; font-family: var(--mono); font-size: 16px; line-height: 1.4; background: var(--color-slate-dark); color: var(--color-ivory-light); padding: 24px; border-radius: 24px; overflow-x: auto; }
+pre.code .k { color: var(--color-cloud-medium); }
+pre.code .s { color: #d9c9a8; }
+pre.code .n { color: #b9caa9; }
+
+/* Section 2 — Palette */
+.swatch-group { margin-bottom: 48px; }
+.swatch-group h3 { font-family: var(--sans); font-size: 16px; font-weight: 600; letter-spacing: -0.08px; margin: 0 0 16px; }
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; }
+.swatches.big { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+.sw { background: var(--color-ivory-light); border: 1px solid var(--color-stone); border-radius: 24px; overflow: hidden; font-family: var(--sans); }
+.sw-chip { height: 88px; display: flex; align-items: flex-end; padding: 12px 16px; font-size: 12px; font-weight: 600; }
+.swatches.big .sw-chip { height: 132px; }
+.sw-info { padding: 12px 16px 16px; font-size: 12px; letter-spacing: -0.24px; line-height: 1.5; }
+.sw-info strong { display: block; font-size: 15px; letter-spacing: -0.075px; }
+.sw-info code { font-family: var(--mono); font-size: 12px; color: var(--color-slate-medium); }
+.tag-new { display: inline-block; font-size: 11px; font-weight: 600; color: var(--color-moss); margin-left: 6px; }
+
+.just { width: 100%; border-collapse: collapse; font-family: var(--sans); font-size: 15px; letter-spacing: -0.075px; }
+.just th { text-align: left; font-size: 12px; font-weight: 600; color: var(--color-cloud-dark); padding: 8px 16px 8px 0; border-bottom: 1px solid var(--color-slate-dark); }
+.just td { padding: 16px 16px 16px 0; border-bottom: 1px solid var(--color-stone); vertical-align: top; }
+.just td:first-child { white-space: nowrap; font-weight: 600; }
+.dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; vertical-align: 0; }
+@media (max-width: 760px) { .just, .just tbody, .just tr, .just td { display: block; } .just thead { display: none; } .just td { border: 0; padding: 4px 0; } .just tr { border-bottom: 1px solid var(--color-stone); padding: 16px 0; } }
+
+.comp-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+@media (max-width: 900px) { .comp-grid { grid-template-columns: 1fr; } }
+.panel { background: var(--color-ivory-light); border: 1px solid var(--color-stone); border-radius: 24px; padding: 32px; }
+.panel h4 { font-family: var(--sans); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-cloud-dark); margin: 0 0 24px; }
+.row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.stack { display: grid; gap: 16px; }
+
+/* Buttons */
+.btn { font-family: var(--sans); font-size: 15px; font-weight: 500; letter-spacing: -0.075px; border: 0; cursor: pointer; line-height: 1; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+.btn:focus-visible { outline: 2px solid var(--color-moss); outline-offset: 3px; }
+.btn-primary { background: var(--color-clay); color: #fff; padding: 14px 31px; border-radius: 0 0 8px 8px; }
+.btn-primary:hover, .btn-primary.is-hover { background: var(--color-clay-deep); }
+.btn-secondary { background: var(--color-ivory-medium); color: var(--color-slate-dark); padding: 14px 31px; border-radius: 0 0 8px 8px; }
+.btn-secondary:hover { background: var(--color-oat-warm); }
+.btn-ghost { background: transparent; color: var(--color-slate-dark); padding: 10px 16px; border: 1px solid var(--color-cloud-dark); border-radius: 12px; }
+.btn-ghost:hover { border-color: var(--color-slate-dark); }
+.btn-link { background: none; padding: 10px 0; color: var(--color-slate-dark); text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+.btn-sm { font-size: 13px; padding: 8px 12px; }
+
+/* Inputs */
+.field { display: grid; gap: 8px; font-family: var(--sans); }
+.field label { font-size: 12px; font-weight: 600; letter-spacing: -0.24px; }
+.field input { font-family: var(--sans); font-size: 15px; letter-spacing: -0.075px; color: var(--color-slate-dark); background: var(--color-ivory-light); border: 1px solid var(--color-cloud-dark); border-radius: 8px; padding: 12px 14px; outline: none; width: 100%; }
+.field input:focus, .field input.is-focus { border-color: var(--color-moss); box-shadow: 0 0 0 3px rgba(58, 90, 64, 0.18); }
+.field input.is-error { border-color: var(--sem-error-fg); }
+.field .hint { font-size: 12px; letter-spacing: -0.24px; color: var(--color-cloud-dark); }
+.field .err { font-size: 12px; letter-spacing: -0.24px; color: var(--sem-error-fg); }
+
+/* Alerts */
+.alert { font-family: var(--sans); font-size: 15px; letter-spacing: -0.075px; line-height: 1.4; padding: 14px 16px; border-radius: 8px; display: grid; grid-template-columns: auto 1fr; gap: 12px; }
+.alert b { font-weight: 600; }
+.alert .ico { font-weight: 700; width: 16px; text-align: center; }
+.alert.success { background: var(--sem-success-bg); color: var(--sem-success-fg); }
+.alert.warning { background: var(--sem-warning-bg); color: var(--sem-warning-fg); }
+.alert.error { background: var(--sem-error-bg); color: var(--sem-error-fg); }
+.alert.info { background: var(--sem-info-bg); color: var(--sem-info-fg); }
+
+/* Review card */
+.review { background: var(--color-ivory-light); border: 1px solid var(--color-stone); border-radius: 24px; padding: 32px; }
+.review-head { display: flex; justify-content: space-between; align-items: baseline; font-family: var(--sans); font-size: 15px; margin-bottom: 12px; gap: 12px; flex-wrap: wrap; }
+.stars { letter-spacing: 2px; color: var(--color-slate-dark); }
+.stars .off { color: var(--color-stone); }
+.review blockquote { margin: 0 0 24px; font-size: 20px; }
+.review blockquote mark { background: var(--color-manilla); color: inherit; padding: 0 2px; }
+.draft { background: var(--color-ivory-medium); border-radius: 12px; padding: 16px 20px; font-size: 16px; line-height: 1.5; margin-bottom: 16px; border: 1px solid transparent; }
+.draft-label { font-family: var(--sans); font-size: 12px; font-weight: 600; letter-spacing: -0.24px; color: var(--color-cloud-dark); margin-bottom: 8px; display: block; }
+
+/* Section 3 — Mockup */
+.app { display: grid; grid-template-columns: 248px 1fr; background: var(--color-ivory-medium); border: 1px solid var(--color-stone); border-radius: 24px; overflow: hidden; font-family: var(--sans); font-size: 15px; letter-spacing: -0.075px; }
+@media (max-width: 960px) { .app { grid-template-columns: 1fr; } }
+.side { background: var(--color-ivory-light); border-right: 1px solid var(--color-stone); padding: 24px 16px; display: flex; flex-direction: column; gap: 32px; }
+@media (max-width: 960px) { .side { border-right: 0; border-bottom: 1px solid var(--color-stone); } }
+.side .logo { padding: 0 12px; font-size: 12px; }
+.side ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+@media (max-width: 960px) { .side ul { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); } }
+.side li a { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; color: var(--color-slate-medium); text-decoration: none; border-radius: 8px; border-left: 2px solid transparent; }
+.side li a:hover { background: var(--color-ivory-medium); color: var(--color-slate-dark); }
+.side li a.active { color: var(--color-moss); font-weight: 600; background: #e7ebe1; border-left-color: var(--color-moss); border-radius: 0 8px 8px 0; }
+.side .count { font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--color-slate-dark); background: var(--color-oat-warm); padding: 2px 8px; border-radius: 0; }
+.side-foot { margin-top: auto; padding: 0 12px; font-size: 12px; letter-spacing: -0.24px; color: var(--color-cloud-dark); line-height: 1.5; }
+.side-foot .ok { color: var(--color-moss); font-weight: 600; }
+
+.main { padding: 32px; display: grid; gap: 24px; min-width: 0; }
+@media (max-width: 640px) { .main { padding: 16px; } }
+.app-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.app-head h2 { font-family: var(--serif); font-weight: 400; font-size: 36px; line-height: 1.1; margin: 0; letter-spacing: 0; }
+.app-head .sub { font-size: 12px; letter-spacing: -0.24px; color: var(--color-cloud-dark); margin-top: 6px; }
+.head-actions { display: flex; align-items: center; gap: 12px; }
+.select { font-family: var(--sans); font-size: 15px; background: var(--color-ivory-light); border: 1px solid var(--color-cloud-dark); border-radius: 12px; padding: 10px 14px; color: var(--color-slate-dark); }
+.avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--color-oat-warm); color: var(--color-slate-dark); display: grid; place-items: center; font-size: 13px; font-weight: 700; letter-spacing: 0.02em; border: 1px solid var(--color-stone); }
+
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 1100px) { .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .stats { grid-template-columns: 1fr; } }
+.stat { background: var(--color-ivory-light); border: 1px solid var(--color-stone); border-radius: 24px; padding: 24px; display: grid; gap: 8px; align-content: start; }
+.stat .label { font-size: 12px; font-weight: 600; letter-spacing: -0.24px; color: var(--color-cloud-dark); }
+.stat .value { font-family: var(--serif); font-size: 48px; line-height: 1; font-variant-numeric: tabular-nums; }
+.stat .value small { font-family: var(--sans); font-size: 15px; color: var(--color-cloud-dark); margin-left: 6px; font-weight: 500; }
+.stat .foot { font-size: 12px; letter-spacing: -0.24px; color: var(--color-slate-medium); font-variant-numeric: tabular-nums; }
+.stat svg { display: block; margin-top: 4px; }
+
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+.priority { background: var(--color-manilla); border-radius: 24px; padding: 32px; }
+.priority .label { font-size: 12px; font-weight: 600; letter-spacing: -0.24px; color: var(--color-slate-medium); }
+.priority h3 { font-family: var(--serif); font-weight: 400; font-size: 32px; line-height: 1.15; margin: 8px 0 12px; }
+.priority p { font-family: var(--serif); font-size: 18px; margin: 0; }
+.sim { background: var(--color-oat-warm); border-radius: 24px; padding: 32px; display: grid; gap: 16px; align-content: start; }
+.sim .label { font-size: 12px; font-weight: 600; letter-spacing: -0.24px; color: var(--color-slate-medium); }
+.sim p { font-family: var(--serif); font-size: 20px; margin: 0; }
+.sim strong { font-variant-numeric: tabular-nums; }
+.bar { height: 8px; background: var(--color-ivory-light); border-radius: 0 0 4px 4px; overflow: hidden; }
+.bar span { display: block; height: 100%; width: 38%; background: var(--color-moss); }
+
+.table-card { background: var(--color-ivory-light); border: 1px solid var(--color-stone); border-radius: 24px; padding: 24px 24px 8px; min-width: 0; }
+.table-card-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 8px; flex-wrap: wrap; }
+.table-card-head h3 { font-size: 16px; font-weight: 600; letter-spacing: -0.08px; margin: 0; }
+.scroll { overflow-x: auto; }
+table.reviews { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; min-width: 720px; }
+table.reviews th { text-align: left; font-size: 12px; font-weight: 600; letter-spacing: -0.24px; color: var(--color-cloud-dark); padding: 12px 16px 12px 0; border-bottom: 1px solid var(--color-slate-dark); }
+table.reviews td { padding: 16px 16px 16px 0; border-bottom: 1px solid var(--color-stone); vertical-align: top; }
+table.reviews tr:last-child td { border-bottom: 0; }
+table.reviews .excerpt { font-family: var(--serif); font-size: 16px; color: var(--color-slate-medium); max-width: 36ch; }
+.theme { font-weight: 600; font-size: 13px; }
+.theme.neg { color: var(--sem-error-fg); }
+.theme.pos { color: var(--sem-success-fg); }
+.age { font-size: 12px; color: var(--color-cloud-dark); display: block; margin-top: 2px; }
+
+footer { background: var(--color-slate-dark); color: var(--color-ivory-light); padding: 76px 0; font-family: var(--sans); font-size: 12px; letter-spacing: -0.24px; }
+footer .cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+@media (max-width: 760px) { footer .cols { grid-template-columns: 1fr; } }
+footer h5 { font-size: 12px; font-weight: 600; margin: 0 0 12px; }
+footer p { color: var(--color-cloud-medium); margin: 0; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="topbar">
+    <span class="logo"><span class="logo-mark"></span>CNS Avis</span>
+    <nav>
+      <a href="#typo">Typographie</a>
+      <a href="#palette">Palette</a>
+      <a href="#ecran">Écran</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <h1>Le bilan de vos avis Google, <a href="#ecran">chaque mois</a>, en un coup d’œil.</h1>
+    <p>Proposition de système de design pour CNS Avis. La structure, la typographie, l’espacement et les neutres viennent de la référence d’origine. Seules la couleur de marque (vert mousse) et la couleur d’action (terre cuite) changent, pour un outil sérieux qui parle à un artisan de la dépollution.</p>
+  </div>
+</div>
+
+<!-- ───────────── Section 1 — Specimen typo ───────────── -->
+<section id="typo">
+  <div class="wrap">
+    <p class="eyebrow">01 — Specimen typographique</p>
+
+    <div class="spec-row">
+      <div class="meta">Display · Serif<br>Source Serif 4 · 400 · 68/1.1</div>
+      <p class="display-serif">CNS <em>Avis</em></p>
+    </div>
+
+    <div class="spec-row">
+      <div class="meta">Heading · Sans<br>Inter · 700 · 61/1.1</div>
+      <p class="heading-sans">Votre note, mois par mois.</p>
+    </div>
+
+    <div class="spec-row">
+      <div class="meta">Subheading · Sans<br>Inter · 600 · 24/1.3</div>
+      <p class="subheading">Point prioritaire : ponctualité</p>
+    </div>
+
+    <div class="spec-row">
+      <div class="meta">Body · Serif<br>Source Serif 4 · 400 · 20/1.4</div>
+      <p class="body-copy">En septembre, vous avez reçu 6 nouveaux avis, contre 4 en août. Votre note affichée reste à 4,8 : il vous faut 16 avis 5★ pour afficher 4,9. Deux clients évoquent un retard à l’arrivée sur le chantier, et c’est le thème le plus souvent reproché sur les douze derniers mois. Les retours sur la neutralisation de la cuve et le certificat remis le jour même restent unanimement positifs.</p>
+    </div>
+
+    <div class="spec-row">
+      <div class="meta">Caption · Sans<br>Inter · 400 · 12/1.4</div>
+      <p class="caption">Dernière récupération des avis : mardi 20 octobre 2026 à 06:12 · 131 avis analysés</p>
+    </div>
+
+    <div class="spec-row">
+      <div class="meta">Data · Sans<br>Inter · tabular-nums</div>
+      <table class="data">
+        <thead><tr><th>Mois</th><th class="num">Note</th><th class="num">Avis reçus</th><th class="num">Répondus</th><th class="num">Délai moyen</th></tr></thead>
+        <tbody>
+          <tr><td>Juillet 2026</td><td class="num">4,81</td><td class="num">7</td><td class="num">71 %</td><td class="num">6,4 j</td></tr>
+          <tr><td>Août 2026</td><td class="num">4,82</td><td class="num">4</td><td class="num">100 %</td><td class="num">2,0 j</td></tr>
+          <tr><td>Septembre 2026</td><td class="num">4,83</td><td class="num">6 <span class="delta-up">+2</span></td><td class="num">67 %</td><td class="num">3,1 j</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="spec-row">
+      <div class="meta">Code · Mono<br>JetBrains Mono · 400 · 16/1.4</div>
+<pre class="code"><span class="k">// Takeout/Google Business Profile/…/reviews.json</span>
+{
+  <span class="s">"reviewer"</span>: { <span class="s">"displayName"</span>: <span class="s">"Gérard M."</span> },
+  <span class="s">"starRating"</span>: <span class="s">"TWO"</span>,
+  <span class="s">"comment"</span>: <span class="s">"Arrivé avec 1 h 30 de retard sans prévenir…"</span>,
+  <span class="s">"createTime"</span>: <span class="s">"2026-09-12T08:41:17Z"</span>,
+  <span class="s">"reviewReply"</span>: <span class="n">null</span>
+}</pre>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── Section 2 — Palette ───────────── -->
+<section id="palette">
+  <div class="wrap">
+    <p class="eyebrow">02 — Palette &amp; composants</p>
+
+    <div class="swatch-group">
+      <h3>Brand &amp; Accent <span class="tag-new">● modifiés</span></h3>
+      <div class="swatches big">
+        <div class="sw"><div class="sw-chip" style="background:#3a5a40;color:#fff">Aa 7,73:1</div><div class="sw-info"><strong>Moss · Brand</strong><code>#3a5a40</code> · <code>--color-moss</code><br>Logo, nav active, focus, courbe de note</div></div>
+        <div class="sw"><div class="sw-chip" style="background:#2c4632;color:#fff">Aa 10,35:1</div><div class="sw-info"><strong>Moss Deep</strong><code>#2c4632</code> · <code>--color-moss-deep</code><br>Hover / pressed des éléments de marque</div></div>
+        <div class="sw"><div class="sw-chip" style="background:#b4532a;color:#fff">Aa 4,99:1</div><div class="sw-info"><strong>Clay · Accent</strong><code>#b4532a</code> · <code>--color-clay</code><br>Le seul CTA rempli de la page</div></div>
+        <div class="sw"><div class="sw-chip" style="background:#96421f;color:#fff">Aa 6,78:1</div><div class="sw-info"><strong>Clay Deep</strong><code>#96421f</code> · <code>--color-clay-deep</code><br>Hover / pressed du CTA</div></div>
+      </div>
+    </div>
+
+    <div class="swatch-group">
+      <h3>Neutres <span class="meta">— inchangés</span></h3>
+      <div class="swatches">
+        <div class="sw"><div class="sw-chip" style="background:#141413;color:#faf9f5">Slate Dark</div><div class="sw-info"><code>#141413</code></div></div>
+        <div class="sw"><div class="sw-chip" style="background:#3d3d3a;color:#faf9f5">Slate Medium</div><div class="sw-info"><code>#3d3d3a</code></div></div>
+        <div class="sw"><div class="sw-chip" style="background:#87867f;color:#141413">Cloud Dark</div><div class="sw-info"><code>#87867f</code></div></div>
+        <div class="sw"><div class="sw-chip" style="background:#b0aea5;color:#141413">Cloud Medium</div><div class="sw-info"><code>#b0aea5</code></div></div>
+        <div class="sw"><div class="sw-chip" style="background:#cccbc8;color:#141413">Stone</div><div class="sw-info"><code>#cccbc8</code></div></div>
+        <div class="sw"><div class="sw-chip" style="background:#e3dacc;color:#141413">Oat Warm</div><div class="sw-info"><code>#e3dacc</code></div></div>
+        <div class="sw"><div class="sw-chip" style="background:#f5e3c7;color:#141413">Manilla</div><div class="sw-info"><code>#f5e3c7</code></div></div>
+        <div class="sw"><div class="sw-chip" style="background:#f0eee6;color:#141413;border-bottom:1px solid #cccbc8">Ivory Medium</div><div class="sw-info"><code>#f0eee6</code></div></div>
+        <div class="sw"><div class="sw-chip" style="background:#faf9f5;color:#141413;border-bottom:1px solid #cccbc8">Ivory Light</div><div class="sw-info"><code>#faf9f5</code></div></div>
+      </div>
+    </div>
+
+    <div class="swatch-group">
+      <h3>Justification des changements</h3>
+      <table class="just">
+        <thead><tr><th>Couleur</th><th>Contraste vs fond (AA)</th><th>Lisibilité du texte sur la couleur</th><th>Cohérence avec l’original</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="dot" style="background:#3a5a40"></span>Moss #3a5a40</td>
+            <td>6,65:1 sur Ivory Medium, 7,34:1 sur Ivory Light : AA texte normal, et même AAA sur cartes.</td>
+            <td>Texte blanc à 7,73:1 (AAA), donc lisible en libellé actif comme en pastille.</td>
+            <td>Vert de terre désaturé, de la famille earth-tone, qui évoque le sol préservé sans casser le parchemin.</td>
+          </tr>
+          <tr>
+            <td><span class="dot" style="background:#b4532a"></span>Clay #b4532a</td>
+            <td>4,29:1 sur Ivory Medium (≥ 3:1 exigé pour un composant UI) et 4,73:1 sur Ivory Light.</td>
+            <td>Texte blanc à 4,99:1 (AA). L’original #d97757 plafonnait à 3,12:1 et échouait.</td>
+            <td>Même terre cuite, cuite plus longtemps : le geste « un seul accent chaud pour agir » reste intact.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="comp-grid">
+      <div class="panel">
+        <h4>Boutons</h4>
+        <div class="stack">
+          <div class="row">
+            <button class="btn btn-primary">Télécharger le PDF</button>
+            <button class="btn btn-primary is-hover">Hover</button>
+          </div>
+          <div class="row">
+            <button class="btn btn-secondary">Recharger un zip</button>
+            <button class="btn btn-ghost">Autre proposition</button>
+            <button class="btn btn-link">Ouvrir l’avis sur Google</button>
+          </div>
+          <p class="caption">Primary = Clay, coins bas seuls · Secondary = ivoire, coins bas seuls · Ghost = contour 12px · Focus = anneau Moss</p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h4>Champs</h4>
+        <div class="stack">
+          <div class="field">
+            <label for="f1">Nom affiché dans les réponses</label>
+            <input id="f1" value="CNS Dépollution">
+            <span class="hint">Tel qu’il figure sur votre fiche Google.</span>
+          </div>
+          <div class="field">
+            <label for="f2">Adresse des alertes</label>
+            <input id="f2" class="is-focus" value="contact@cns-depollution.fr">
+          </div>
+          <div class="field">
+            <label for="f3">Fichier Takeout</label>
+            <input id="f3" class="is-error" value="photos-vacances-2025.zip">
+            <span class="err">Ce fichier n’est pas un export Google My Business.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h4>Alertes <span style="text-transform:none;letter-spacing:0;font-weight:400">· teintes provisoires</span></h4>
+        <div class="stack">
+          <div class="alert success"><span class="ico">✓</span><span><b>Vous êtes à jour.</b> Tous vos avis ont reçu une réponse.</span></div>
+          <div class="alert warning"><span class="ico">!</span><span><b>Aucun nouvel avis en septembre.</b> Pensez à envoyer le lien à vos derniers clients.</span></div>
+          <div class="alert error"><span class="ico">×</span><span><b>Récupération interrompue.</b> Reconnectez votre fiche Google ou rechargez un zip.</span></div>
+          <div class="alert info"><span class="ico">i</span><span>12 avis sans texte sont rangés dans « Non classés ». Ils comptent dans la note.</span></div>
+        </div>
+      </div>
+
+      <div class="review">
+        <div class="review-head">
+          <span><strong>Gérard M.</strong> · <span class="stars">★★<span class="off">★★★</span></span></span>
+          <span class="meta">12 septembre 2026 · sans réponse depuis 39 j</span>
+        </div>
+        <blockquote>« Travail propre et certificat reçu rapidement, mais <mark>arrivé avec 1 h 30 de retard sans prévenir</mark>, j’avais posé ma matinée. »</blockquote>
+        <div class="draft">
+          <span class="draft-label">Brouillon de réponse</span>
+          Bonjour Gérard, merci d’avoir pris le temps de laisser cet avis. Vous avez raison : arriver avec 1 h 30 de retard sans vous prévenir n’est pas acceptable, d’autant que vous aviez libéré votre matinée. Je serais heureux d’en parler avec vous directement. — CNS Dépollution
+        </div>
+        <div class="row">
+          <button class="btn btn-ghost btn-sm">Copier</button>
+          <button class="btn btn-ghost btn-sm">Autre proposition</button>
+          <button class="btn btn-link btn-sm">Ouvrir l’avis sur Google</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── Section 3 — Mockup dashboard ───────────── -->
+<section id="ecran">
+  <div class="wrap">
+    <p class="eyebrow">03 — Écran · <b>Bilan du mois</b></p>
+
+    <div class="app">
+      <aside class="side">
+        <span class="logo"><span class="logo-mark"></span>CNS Avis</span>
+        <ul>
+          <li><a href="#" class="active">Bilan du mois</a></li>
+          <li><a href="#">Thèmes clients</a></li>
+          <li><a href="#">Réponses aux avis <span class="count">17</span></a></li>
+          <li><a href="#">Simulateur de note</a></li>
+          <li><a href="#">Demandes d’avis</a></li>
+        </ul>
+        <div class="side-foot">
+          <span class="ok">● Fiche connectée</span><br>
+          Dernière récupération<br>aujourd’hui, 06:12
+        </div>
+      </aside>
+
+      <div class="main">
+        <div class="app-head">
+          <div>
+            <h2>Septembre 2026</h2>
+            <div class="sub">Comparé à août 2026 · 131 avis au total</div>
+          </div>
+          <div class="head-actions">
+            <select class="select" aria-label="Mois du bilan">
+              <option>Septembre 2026</option><option>Août 2026</option><option>Juillet 2026</option>
+            </select>
+            <button class="btn btn-primary">Télécharger le PDF</button>
+            <span class="avatar" title="CNS Dépollution">CD</span>
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <span class="label">Note Google</span>
+            <span class="value">4,8<small>4,83</small></span>
+            <svg width="100%" height="36" viewBox="0 0 200 36" preserveAspectRatio="none" aria-label="Évolution sur 12 mois">
+              <polyline fill="none" stroke="#cccbc8" stroke-width="1" points="0,30 200,30"/>
+              <polyline fill="none" stroke="#3a5a40" stroke-width="2" stroke-linejoin="round" points="0,26 18,25 36,27 55,24 73,22 91,23 109,20 127,18 145,19 164,16 182,14 200,12"/>
+              <circle cx="200" cy="12" r="3" fill="#3a5a40"/>
+            </svg>
+            <span class="foot"><span class="delta-up">+0,01</span> vs août · 12 mois</span>
+          </div>
+          <div class="stat">
+            <span class="label">Avis reçus ce mois</span>
+            <span class="value">6</span>
+            <span class="foot"><span class="delta-up">+2</span> vs août (4)</span>
+          </div>
+          <div class="stat">
+            <span class="label">Avis avec réponse</span>
+            <span class="value">87<small>%</small></span>
+            <span class="foot">114 sur 131 · 17 sans réponse</span>
+          </div>
+          <div class="stat">
+            <span class="label">Délai moyen de réponse</span>
+            <span class="value">3,1<small>jours</small></span>
+            <span class="foot"><span class="delta-down">+1,1 j</span> vs août</span>
+          </div>
+        </div>
+
+        <div class="split">
+          <div class="priority">
+            <span class="label">Point prioritaire · 12 derniers mois</span>
+            <h3>Ponctualité</h3>
+            <p>5 reproches, dont 2 ce mois-ci. Vos clients acceptent un décalage s’ils sont prévenus. Ce qu’ils reprochent, c’est l’attente sans nouvelles.</p>
+          </div>
+          <div class="sim">
+            <span class="label">Simulateur de note</span>
+            <p>Il vous faut <strong>16 avis 5★</strong> pour afficher <strong>4,9</strong>.</p>
+            <div class="bar" aria-hidden="true"><span></span></div>
+            <p>Vous pouvez recevoir <strong>2 avis 1★</strong> avant de descendre à <strong>4,7</strong>.</p>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-card-head">
+            <h3>Avis sans réponse</h3>
+            <a href="#" class="btn btn-link btn-sm">Voir les 17 avis</a>
+          </div>
+          <div class="scroll">
+            <table class="reviews">
+              <thead><tr><th>Client</th><th>Note</th><th>Thème</th><th>Extrait</th><th></th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><strong>Gérard M.</strong><span class="age">12/09/2026 · il y a 39 j</span></td>
+                  <td class="stars">★★<span class="off">★★★</span></td>
+                  <td><span class="theme neg">Ponctualité −</span></td>
+                  <td class="excerpt">« Arrivé avec 1 h 30 de retard sans prévenir, j’avais posé ma matinée. »</td>
+                  <td><a href="#" class="btn btn-link btn-sm">Brouillon</a></td>
+                </tr>
+                <tr>
+                  <td><strong>Sylvie B.</strong><span class="age">03/09/2026 · il y a 48 j</span></td>
+                  <td class="stars">★★★<span class="off">★★</span></td>
+                  <td><span class="theme neg">Communication −</span></td>
+                  <td class="excerpt">« Difficile à joindre pour fixer la date, mais la cuve a été vidée proprement. »</td>
+                  <td><a href="#" class="btn btn-link btn-sm">Brouillon</a></td>
+                </tr>
+                <tr>
+                  <td><strong>Nathalie R.</strong><span class="age">21/08/2026 · il y a 61 j</span></td>
+                  <td class="stars">★★★★<span class="off">★</span></td>
+                  <td><span class="theme neg">Prix et devis −</span></td>
+                  <td class="excerpt">« Devis clair, un peu plus cher que ce que j’avais trouvé ailleurs. »</td>
+                  <td><a href="#" class="btn btn-link btn-sm">Brouillon</a></td>
+                </tr>
+                <tr>
+                  <td><strong>Patrick L.</strong><span class="age">28/09/2026 · il y a 23 j</span></td>
+                  <td class="stars">★★★★★</td>
+                  <td><span class="theme pos">Certificat et démarches +</span></td>
+                  <td class="excerpt">« Cuve dégazée et neutralisée en une matinée, attestation pour la vente reçue le soir même. »</td>
+                  <td><a href="#" class="btn btn-link btn-sm">Brouillon</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap cols">
+    <div><h5>Modifié</h5><p>Brand Moss #3a5a40 / #2c4632<br>Accent Clay #b4532a / #96421f</p></div>
+    <div><h5>Inchangé</h5><p>Neutres, typographie (substituts Google Fonts : Source Serif 4, Inter, JetBrains Mono), espacements, rayons, composants.</p></div>
+    <div><h5>À trancher</h5><p>DESIGN.md ne définit aucune couleur sémantique. Les teintes success / warning / error / info de ce preview sont provisoires.</p></div>
+  </div>
+</footer>
+
+</body>
+</html>
